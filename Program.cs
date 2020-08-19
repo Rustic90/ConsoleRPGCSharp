@@ -26,7 +26,7 @@ namespace ConsoleRPG
             }
             else if (choice == "Wizard")
             {
-                Wizard wiz1 = new Wizard(choice, 20, 2, 0);
+                Wizard wiz1 = new Wizard(choice, 20, 0, 2);
                 wiz1.PrintHeroInfo();
             }
             else if (choice == "Ranger")
@@ -36,9 +36,11 @@ namespace ConsoleRPG
             }
             else if (choice == "Cleric")
             {
-                Cleric cle1 = new Cleric(choice, 20, 2, 0);
+                Cleric cle1 = new Cleric(choice, 20, 0, 2);
                 cle1.PrintHeroInfo();
             }
+            Wolf wolf1 = new Wolf();
+            wolf1.PrintMonsterInfo();
             Console.ReadLine();
         }
 

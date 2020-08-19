@@ -6,24 +6,19 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class BaseHero
+    public class Monster
     {
-        public string hero;
+        public string name;
         public int health;
         public int strength;
-        public int magic;
-        public int gold = 0;
+        public int loot;
 
-        public void PrintHeroInfo()
+        public void PrintMonsterInfo()
         {
             Console.WriteLine("-----------------");
-            Console.WriteLine("Class: " + hero);
+            Console.WriteLine("Monster: " + name);
             Console.WriteLine("Health: " + health);
             Console.WriteLine("Strength: " + strength);
-            Console.WriteLine("Magic: " + magic);
-            Console.WriteLine("Gold: " + gold);
         }
     }
-
-
 }
