@@ -8,6 +8,7 @@ namespace ConsoleRPG
 {
     class Program
     {
+        public static string gameState = "menu";
         static void Main(string[] args)
         {
             // Displays initial messages and prompts user to pick a class
@@ -16,14 +17,8 @@ namespace ConsoleRPG
             Console.WriteLine("Are you a Warrior, Wizard, Ranger, or Cleric?");
             string choice = ChooseClass();
 
-            // Created Empty Objects to have Global Stats of the Character
-            Warrior war = new Warrior();
-            Wizard wiz = new Wizard();
-            Ranger ran = new Ranger();
-            Cleric cle = new Cleric();
-
-            Slug slu;
-            Wolf wol;
+            // Created Empty Object to have Global Stats of the Character
+            Hero playerHero = new Hero();
 
             // Main Flow of Game
             while (choice == "Invalid")
@@ -32,45 +27,32 @@ namespace ConsoleRPG
             }
             if (choice == "Warrior")
             {
-                war = new Warrior(choice, 20, 2, 0);
-                war.PrintHeroInfo();
+                playerHero = new Hero("Warrior");
             }
             else if (choice == "Wizard")
             {
-                wiz = new Wizard(choice, 20, 0, 2);
-                wiz.PrintHeroInfo();
+                playerHero = new Hero("Wizard");
             }
             else if (choice == "Ranger")
             {
-                ran = new Ranger(choice, 20, 2, 0);
-                ran.PrintHeroInfo();
+                playerHero = new Hero("Ranger");
             }
             else if (choice == "Cleric")
             {
-                cle = new Cleric(choice, 20, 0, 2);
-                cle.PrintHeroInfo();
+                playerHero = new Hero("Cleric");
             }
-         
-            string monsterSelection = ChooseMonster();
-            while (monsterSelection  == "Invalid")
+            Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
+            string menuSelection = Console.ReadLine();
+            if (menuSelection == "b")
             {
-                monsterSelection = ChooseMonster();
+                gameState = "battle";
+                Battle(playerHero);
+           
             }
-            if (monsterSelection == "Slug")
+            else if (menuSelection == "q")
             {
-                Slug monster = new Slug();
+                return;
             }
-            else if (monsterSelection == "Wolf")
-            {
-                Wolf monster = new Wolf();
-            }
-          
-            Console.WriteLine("Press enter to begin the battle.");
-            Console.ReadLine();
-            Console.Clear();
-            
-            Console.WriteLine("Battle will begin here.");
-            Console.ReadLine();
         }
 
         // Takes user input and compares it to available classes. Returns a string
@@ -94,12 +76,11 @@ namespace ConsoleRPG
         public static string ChooseMonster()
         {
             string monsterChoice;
-            string[] monsterChoices = {"Slug", "Wolf" };
+            string[] monsterChoices = {"slug", "wolf" };
             Console.WriteLine("What monster do you choose to fight? " + monsterChoices[0] + " or " + monsterChoices[1]);
             monsterChoice = Console.ReadLine();
             if (Array.IndexOf(monsterChoices, monsterChoice) > -1)
             {
-                Console.WriteLine("You wish to fight the " + monsterChoice + ". Very Well");
                 return monsterChoice;
             }
             else
@@ -109,9 +90,100 @@ namespace ConsoleRPG
             }
         }
 
-        public static void Battle()
+        public static void Battle(Hero PlayerHero)
         {
+            // Create Monster Objects
+            Slug slug = new Slug();
+            Wolf wolf = new Wolf();
+            string monsterSelection = ChooseMonster();
+            
+            while (monsterSelection == "Invalid")
+            {
+                monsterSelection = ChooseMonster();
+            }
+            if (monsterSelection == "slug")
+            {
+                while (PlayerHero.health > 0 && slug.health > 0 && gameState == "battle")
+                {
+                    Console.Clear();
+                    PlayerHero.PrintHeroInfo();
+                    slug.PrintMonsterInfo();
+                    Console.WriteLine("Attack (a) or Run (r)");
+                    string decision = Console.ReadLine();
+                    if (decision == "a")
+                    {
+                        PlayerHero.TakeDamage(slug.strength);
+                        slug.health -= PlayerHero.GetStrength();
+                        PlayerHero.PrintHeroInfo();
+                        slug.PrintMonsterInfo();
+                    }
+                    if (decision == "r")
+                    {
+                        break;
+                    }
+                }
+                if (PlayerHero.health > 0)
+                {
+                    PlayerHero.GetLoot(slug.loot);
+                }
+                gameState = "menu";
+                DisplayCurrentState(PlayerHero);
+            }
+            else if (monsterSelection == "wolf")
+            {
+                while (PlayerHero.health > 0 && wolf.health > 0 && gameState == "battle")
+                {
+                    Console.Clear();
+                    PlayerHero.PrintHeroInfo();
+                    wolf.PrintMonsterInfo();
+                    Console.WriteLine("Attack (a) or Run (r)");
+                    string decision = Console.ReadLine();
+                    if (decision == "a")
+                    {
+                        PlayerHero.TakeDamage(wolf.strength);
+                        wolf.health -= PlayerHero.GetStrength();
+                        PlayerHero.PrintHeroInfo();
+                        wolf.PrintMonsterInfo();
+                    }
+                    if (decision == "r")
+                    {
+                        break;
+                    }
+                }
+                if (PlayerHero.health > 0)
+                {
+                    PlayerHero.GetLoot(wolf.loot);
+                }
+                gameState = "menu";
+                DisplayCurrentState(PlayerHero);
+            }
 
+           
+            Console.ReadLine();
+            
+        }
+
+        public static void DisplayCurrentState(Hero playerHero)
+        {
+            Console.Clear();
+            if (gameState == "menu")
+            {
+                Console.Clear();
+                playerHero.PrintHeroInfo();
+                Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
+                string menuSelection = Console.ReadLine();
+                if (menuSelection == "b")
+                {
+                    gameState = "battle";
+                    Battle(playerHero);
+
+                }
+                else if (menuSelection == "q")
+                {
+                    System.Environment.Exit(1);
+                }
+
+            }
         }
         
     }

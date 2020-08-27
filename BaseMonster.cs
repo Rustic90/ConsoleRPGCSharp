@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public abstract class BaseMonster
+    public class BaseMonster
     {
         public string name;
         public int health;
@@ -15,7 +15,6 @@ namespace ConsoleRPG
 
         public void PrintMonsterInfo()
         {
-            Console.WriteLine("-----------------");
             Console.WriteLine("Monster: " + name);
             Console.WriteLine("Health: " + health);
             Console.WriteLine("Strength: " + strength);
