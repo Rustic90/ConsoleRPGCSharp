@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class Wolf : BaseMonster
+    public class Slug : BaseMonster
     {
-        public Wolf()
+        public Slug()
         {
-            name = "Wolf";
-            health = 6;
-            strength = 3;
-            loot = 3;
+            name = "Slug";
+            health = 2;
+            strength = 1;
+            loot = 1;
         }
     }
 }

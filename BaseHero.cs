@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class BaseHero
+    public abstract class BaseHero
     {
         public string hero;
         public int health;
@@ -22,6 +22,7 @@ namespace ConsoleRPG
             Console.WriteLine("Strength: " + strength);
             Console.WriteLine("Magic: " + magic);
             Console.WriteLine("Gold: " + gold);
+            Console.WriteLine("-----------------");
         }
     }
 

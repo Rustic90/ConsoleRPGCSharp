@@ -15,32 +15,61 @@ namespace ConsoleRPG
             Console.WriteLine("Let's begin by getting you a character.");
             Console.WriteLine("Are you a Warrior, Wizard, Ranger, or Cleric?");
             string choice = ChooseClass();
+
+            // Created Empty Objects to have Global Stats of the Character
+            Warrior war = new Warrior();
+            Wizard wiz = new Wizard();
+            Ranger ran = new Ranger();
+            Cleric cle = new Cleric();
+
+            Slug slu;
+            Wolf wol;
+
+            // Main Flow of Game
             while (choice == "Invalid")
             {
                 choice = ChooseClass();
             }
             if (choice == "Warrior")
             {
-                Warrior war1 = new Warrior(choice, 20, 4, 0);
-                war1.PrintHeroInfo();
+                war = new Warrior(choice, 20, 2, 0);
+                war.PrintHeroInfo();
             }
             else if (choice == "Wizard")
             {
-                Wizard wiz1 = new Wizard(choice, 20, 0, 2);
-                wiz1.PrintHeroInfo();
+                wiz = new Wizard(choice, 20, 0, 2);
+                wiz.PrintHeroInfo();
             }
             else if (choice == "Ranger")
             {
-                Ranger ran1 = new Ranger(choice, 20, 2, 0);
-                ran1.PrintHeroInfo();
+                ran = new Ranger(choice, 20, 2, 0);
+                ran.PrintHeroInfo();
             }
             else if (choice == "Cleric")
             {
-                Cleric cle1 = new Cleric(choice, 20, 0, 2);
-                cle1.PrintHeroInfo();
+                cle = new Cleric(choice, 20, 0, 2);
+                cle.PrintHeroInfo();
             }
-            Wolf wolf1 = new Wolf();
-            wolf1.PrintMonsterInfo();
+         
+            string monsterSelection = ChooseMonster();
+            while (monsterSelection  == "Invalid")
+            {
+                monsterSelection = ChooseMonster();
+            }
+            if (monsterSelection == "Slug")
+            {
+                Slug monster = new Slug();
+            }
+            else if (monsterSelection == "Wolf")
+            {
+                Wolf monster = new Wolf();
+            }
+          
+            Console.WriteLine("Press enter to begin the battle.");
+            Console.ReadLine();
+            Console.Clear();
+            
+            Console.WriteLine("Battle will begin here.");
             Console.ReadLine();
         }
 
@@ -61,5 +90,29 @@ namespace ConsoleRPG
                 return "Invalid";
             }
         }
+
+        public static string ChooseMonster()
+        {
+            string monsterChoice;
+            string[] monsterChoices = {"Slug", "Wolf" };
+            Console.WriteLine("What monster do you choose to fight? " + monsterChoices[0] + " or " + monsterChoices[1]);
+            monsterChoice = Console.ReadLine();
+            if (Array.IndexOf(monsterChoices, monsterChoice) > -1)
+            {
+                Console.WriteLine("You wish to fight the " + monsterChoice + ". Very Well");
+                return monsterChoice;
+            }
+            else
+            {
+                Console.WriteLine("Please select a valid monster to fight.");
+                return "Invalid";
+            }
+        }
+
+        public static void Battle()
+        {
+
+        }
+        
     }
 }

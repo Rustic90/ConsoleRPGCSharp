@@ -8,6 +8,10 @@ namespace ConsoleRPG
 {
     public class Warrior : BaseHero
     {
+        public Warrior()
+        {
+
+        }
         public Warrior(string Hero, int Health, int Strength, int Magic)
         {
             hero = Hero;

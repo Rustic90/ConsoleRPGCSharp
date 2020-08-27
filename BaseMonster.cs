@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleRPG
 {
-    public class Monster
+    public abstract class BaseMonster
     {
         public string name;
         public int health;
