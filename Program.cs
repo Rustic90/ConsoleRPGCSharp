@@ -9,49 +9,52 @@ namespace ConsoleRPG
     class Program
     {
         public static string gameState = "menu";
+        public static string gameType;
         static void Main(string[] args)
         {
-            // Displays initial messages and prompts user to pick a class
-            Console.WriteLine("Welcome to ConsoleRPG!");
-            Console.WriteLine("Let's begin by getting you a character.");
-            Console.WriteLine("Are you a Warrior, Wizard, Ranger, or Cleric?");
-            string choice = ChooseClass();
-
             // Created Empty Object to have Global Stats of the Character
             Hero playerHero = new Hero();
 
-            // Main Flow of Game
-            while (choice == "Invalid")
+            // Displays initial information and sets game up
+            Console.WriteLine("ConsoleRPG - A Text RPG Game");
+            bool startGame = false;
+            while (startGame == false)
             {
-                choice = ChooseClass();
-            }
-            if (choice == "Warrior")
-            {
-                playerHero = new Hero("Warrior");
-            }
-            else if (choice == "Wizard")
-            {
-                playerHero = new Hero("Wizard");
-            }
-            else if (choice == "Ranger")
-            {
-                playerHero = new Hero("Ranger");
-            }
-            else if (choice == "Cleric")
-            {
-                playerHero = new Hero("Cleric");
-            }
-            Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
-            string menuSelection = Console.ReadLine();
-            if (menuSelection == "b")
-            {
-                gameState = "battle";
-                Battle(playerHero);
-           
-            }
-            else if (menuSelection == "q")
-            {
-                return;
+                Console.WriteLine("New Game(n) or Load Game(l)?");
+                gameType = Console.ReadLine();
+                if (gameType == "n")
+                {
+                    startGame = true;
+                    Console.WriteLine("Welcome to ConsoleRPG!");
+                    Console.WriteLine("Let's begin by getting you a character.");
+                    Console.WriteLine("Are you a Warrior, Wizard, Ranger, or Cleric?");
+                    string choice = ChooseClass();
+                    while (choice == "Invalid")
+                    {
+                        choice = ChooseClass();
+                    }
+                    if (choice == "Warrior")
+                    {
+                        playerHero = new Hero("Warrior");
+                    }
+                    else if (choice == "Wizard")
+                    {
+                        playerHero = new Hero("Wizard");
+                    }
+                    else if (choice == "Ranger")
+                    {
+                        playerHero = new Hero("Ranger");
+                    }
+                    else if (choice == "Cleric")
+                    {
+                        playerHero = new Hero("Cleric");
+                    }
+                    DisplayCurrentState(playerHero);
+                }
+                else if (gameType == "l")
+                {
+                    Console.WriteLine("Feature coming in later version.");
+                }
             }
         }
 
@@ -73,6 +76,7 @@ namespace ConsoleRPG
             }
         }
 
+        // Allows user to choose what monster they want to fight
         public static string ChooseMonster()
         {
             string monsterChoice;
@@ -90,6 +94,7 @@ namespace ConsoleRPG
             }
         }
 
+        // Primary method for when in a battle with a monster
         public static void Battle(Hero PlayerHero)
         {
             // Create Monster Objects
@@ -116,16 +121,17 @@ namespace ConsoleRPG
                         slug.health -= PlayerHero.GetStrength();
                         PlayerHero.PrintHeroInfo();
                         slug.PrintMonsterInfo();
+                        if (PlayerHero.health > 0)
+                        {
+                            PlayerHero.GetLoot(slug.loot);
+                        }
                     }
                     if (decision == "r")
                     {
                         break;
                     }
                 }
-                if (PlayerHero.health > 0)
-                {
-                    PlayerHero.GetLoot(slug.loot);
-                }
+                
                 gameState = "menu";
                 DisplayCurrentState(PlayerHero);
             }
@@ -144,15 +150,15 @@ namespace ConsoleRPG
                         wolf.health -= PlayerHero.GetStrength();
                         PlayerHero.PrintHeroInfo();
                         wolf.PrintMonsterInfo();
+                        if (PlayerHero.health > 0)
+                        {
+                            PlayerHero.GetLoot(wolf.loot);
+                        }
                     }
                     if (decision == "r")
                     {
                         break;
                     }
-                }
-                if (PlayerHero.health > 0)
-                {
-                    PlayerHero.GetLoot(wolf.loot);
                 }
                 gameState = "menu";
                 DisplayCurrentState(PlayerHero);
@@ -163,6 +169,7 @@ namespace ConsoleRPG
             
         }
 
+        // Displays the current information based on what scenario the player is in. Mostly used for transitioning from scenario to another such as battle to menu or menu to battle.
         public static void DisplayCurrentState(Hero playerHero)
         {
             Console.Clear();
