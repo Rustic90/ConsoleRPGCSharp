@@ -14,6 +14,7 @@ namespace ConsoleRPG
             health = 6;
             strength = 3;
             loot = 3;
+            experience = 5;
         }
     }
 }

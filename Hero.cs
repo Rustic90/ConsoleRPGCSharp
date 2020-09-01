@@ -10,6 +10,8 @@ namespace ConsoleRPG
     {
         private string hero;
         private int level;
+        public int experience;
+        public int maxHealth;
         public int health;
         private int strength;
         private int magic;
@@ -26,6 +28,8 @@ namespace ConsoleRPG
             {
                 this.hero = "Warrior";
                 this.level = 1;
+                this.experience = 0;
+                this.maxHealth = 20;
                 this.health = 20;
                 this.strength = 4;
                 this.magic = 0;
@@ -35,6 +39,8 @@ namespace ConsoleRPG
             {
                 this.hero = "Wizard";
                 this.level = 1;
+                this.experience = 0;
+                this.maxHealth = 10;
                 this.health = 10;
                 this.strength = 2;
                 this.magic = 2;
@@ -44,6 +50,8 @@ namespace ConsoleRPG
             {
                 this.hero = "Ranger";
                 this.level = 1;
+                this.experience = 0;
+                this.maxHealth = 12;
                 this.health = 12;
                 this.strength = 2;
                 this.magic = 2;
@@ -53,6 +61,8 @@ namespace ConsoleRPG
             {
                 this.hero = "Cleric";
                 this.level = 1;
+                this.experience = 0;
+                this.maxHealth = 10;
                 this.health = 10;
                 this.strength = 2;
                 this.magic = 2;
@@ -65,7 +75,8 @@ namespace ConsoleRPG
             Console.WriteLine("-----------------");
             Console.WriteLine("Class: " + hero);
             Console.WriteLine("Level: " + level);
-            Console.WriteLine("Health: " + health);
+            Console.WriteLine("Experience: " + experience);
+            Console.WriteLine("Health: " + health + " / " + maxHealth);
             Console.WriteLine("Strength: " + strength);
             Console.WriteLine("Magic: " + magic);
             Console.WriteLine("Gold: " + gold);
@@ -85,6 +96,11 @@ namespace ConsoleRPG
         public void GetLoot(int Loot)
         {
             this.gold += Loot;
+        }
+
+        public void GetExperience(int Experience)
+        {
+            this.experience += Experience;
         }
     }
 

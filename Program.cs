@@ -10,6 +10,7 @@ namespace ConsoleRPG
     {
         public static string gameState = "menu";
         public static string gameType;
+        public static bool isDead = false;
         static void Main(string[] args)
         {
             // Created Empty Object to have Global Stats of the Character
@@ -121,17 +122,18 @@ namespace ConsoleRPG
                         slug.health -= PlayerHero.GetStrength();
                         PlayerHero.PrintHeroInfo();
                         slug.PrintMonsterInfo();
-                        if (PlayerHero.health > 0)
+                        if (PlayerHero.health > 0 && slug.health <= 0)
                         {
                             PlayerHero.GetLoot(slug.loot);
+                            PlayerHero.GetExperience(slug.experience);
                         }
                     }
                     if (decision == "r")
                     {
                         break;
                     }
+                   
                 }
-                
                 gameState = "menu";
                 DisplayCurrentState(PlayerHero);
             }
@@ -148,17 +150,24 @@ namespace ConsoleRPG
                     {
                         PlayerHero.TakeDamage(wolf.strength);
                         wolf.health -= PlayerHero.GetStrength();
+                        if (PlayerHero.health <= 0)
+                        {
+                            isDead = true;
+                            DisplayCurrentState(PlayerHero);
+                        }
                         PlayerHero.PrintHeroInfo();
                         wolf.PrintMonsterInfo();
-                        if (PlayerHero.health > 0)
+                        if (PlayerHero.health > 0 && wolf.health <= 0)
                         {
                             PlayerHero.GetLoot(wolf.loot);
+                            PlayerHero.GetExperience(wolf.experience);
                         }
                     }
                     if (decision == "r")
                     {
                         break;
                     }
+                   
                 }
                 gameState = "menu";
                 DisplayCurrentState(PlayerHero);
@@ -173,23 +182,30 @@ namespace ConsoleRPG
         public static void DisplayCurrentState(Hero playerHero)
         {
             Console.Clear();
-            if (gameState == "menu")
+            if (isDead == false)
             {
-                Console.Clear();
-                playerHero.PrintHeroInfo();
-                Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
-                string menuSelection = Console.ReadLine();
-                if (menuSelection == "b")
+                if (gameState == "menu")
                 {
-                    gameState = "battle";
-                    Battle(playerHero);
+                    Console.Clear();
+                    playerHero.PrintHeroInfo();
+                    Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
+                    string menuSelection = Console.ReadLine();
+                    if (menuSelection == "b")
+                    {
+                        gameState = "battle";
+                        Battle(playerHero);
+                    }
+                    else if (menuSelection == "q")
+                    {
+                        System.Environment.Exit(1);
+                    }
 
                 }
-                else if (menuSelection == "q")
-                {
-                    System.Environment.Exit(1);
-                }
-
+            }
+            else if (isDead == true)
+            {
+                Console.WriteLine("You died, press enter to exit.");
+                
             }
         }
         

@@ -12,6 +12,7 @@ namespace ConsoleRPG
         public int health;
         public int strength;
         public int loot;
+        public int experience;
 
         public void PrintMonsterInfo()
         {
