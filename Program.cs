@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
+
+
 
 namespace ConsoleRPG
 {
@@ -54,6 +58,10 @@ namespace ConsoleRPG
                 }
                 else if (gameType == "l")
                 {
+                    StreamReader sr = new StreamReader(@"C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\bin\Debug\savefile.json");
+                    string saveFile = sr.ReadToEnd();
+                    playerHero = JsonConvert.DeserializeObject<Hero>(saveFile);
+                    Console.WriteLine(playerHero.health);
                     Console.WriteLine("Feature coming in later version.");
                 }
             }
@@ -188,7 +196,7 @@ namespace ConsoleRPG
                 {
                     Console.Clear();
                     playerHero.PrintHeroInfo();
-                    Console.WriteLine("Do you want to battle monsters (b) or quit (q)?");
+                    Console.WriteLine("Do you want to battle monsters (b), save (s), or quit (q)?");
                     string menuSelection = Console.ReadLine();
                     if (menuSelection == "b")
                     {
@@ -198,6 +206,11 @@ namespace ConsoleRPG
                     else if (menuSelection == "q")
                     {
                         System.Environment.Exit(1);
+                    }
+                    else if (menuSelection == "s")
+                    {
+                        Console.WriteLine("Feature Coming Soon");
+                        Console.ReadLine();
                     }
 
                 }

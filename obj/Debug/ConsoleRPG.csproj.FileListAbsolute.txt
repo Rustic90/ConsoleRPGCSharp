@@ -4,3 +4,6 @@ C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\bin\Debug\ConsoleRPG.pdb
 C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\obj\Debug\ConsoleRPG.csprojAssemblyReference.cache
 C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\obj\Debug\ConsoleRPG.exe
 C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\obj\Debug\ConsoleRPG.pdb
+C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\bin\Debug\Newtonsoft.Json.dll
+C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\bin\Debug\Newtonsoft.Json.xml
+C:\Users\alcor\source\repos\ConsoleRPG\ConsoleRPG\obj\Debug\ConsoleRPG.csproj.CopyComplete
